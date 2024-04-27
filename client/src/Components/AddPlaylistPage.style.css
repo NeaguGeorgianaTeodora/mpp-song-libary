@@ -1,0 +1,18 @@
+.text-field {
+    label{
+        color: rgb(204, 224, 255,0.5);
+        align-items: left;
+    }
+    input{
+        color: white;
+    }
+    .MuiInput-underline:before{
+        border-bottom: 1px solid rgb(204, 224, 255,0.5);
+    }
+    helperText{
+        color: rgb(204, 224, 255,0.5);
+    }
+    .MuiFormHelperText-root{
+        color: rgb(204, 224, 255,0.5);
+    }
+}
