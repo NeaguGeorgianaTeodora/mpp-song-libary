@@ -22,11 +22,6 @@
 }
 
 .card .button{
-   /* border-radius: 20px;
-    border: 1px solid transparent;
-    margin-right: 5px;
-    margin-left: 5px;*/
-
     border-radius: 20px;
     border: 1px solid hsla(203, 75%, 69%, 0.3);
     box-shadow: 5px 5px 5px hsla(0,0%,0%,0.1);

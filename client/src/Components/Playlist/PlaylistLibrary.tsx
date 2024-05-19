@@ -29,10 +29,10 @@ function PlaylistLibrary(props: Props) {
         const api = `http://localhost:3005/playlistLibrary/${data.Id}/songs`;
         fetch(api, {method: "GET"}).then(response => response.json()).then((response) =>{
             
-            console.log(typeof(response));
+            console.log('Response:', response.data);
             return response;
         }).catch((error) => {
-            console.log('Error:', error);
+            console.log('Error:', error.message);
         });
         navigate('/view-playlist');
     }

@@ -3,7 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 42%, rgba(0, 112, 255, 1) 100%);
+  /*background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 42%, rgba(0, 112, 255, 1) 100%);*/
+  background: rgba(9, 9, 121, 1);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

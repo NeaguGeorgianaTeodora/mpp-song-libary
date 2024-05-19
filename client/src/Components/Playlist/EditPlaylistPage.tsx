@@ -44,7 +44,7 @@ function EditPlaylistPage() {
         }).catch((error) => {
             console.log('Error:', error);
         });        
-        navigate('/');
+        navigate('/home');
       };
 
     return (

@@ -5,11 +5,14 @@ import EditPlaylistPage from './Components/Playlist/EditPlaylistPage.tsx';
 import ViewPlaylistPage from './Components/Playlist/ViewPlaylistpage.tsx';
 import AddSongPage from './Components/Song/AddSongPage.tsx';
 import EditSongPage from './Components/Song/EditSongPage.tsx';
-import HomeSongsLibrary from './Components/Song/HomeSongsLibrary.tsx'
+import HomeSongsLibrary from './Components/Song/HomeSongsLibrary.tsx';
+import LogInPage from './Components/StartPage/LogIn/LogInPage.tsx';
+import RegisterPage from './Components/StartPage/Register/RegisterPage.tsx';
 import {Routes, Route} from 'react-router-dom';
 import { IPlaylist, exampleList} from './Components/Playlist/Playlist.type.tsx';
 import { ISong } from './Components/Song/Song.type.tsx';
 import { createContext, useEffect, useState } from 'react';
+import {AuthProvider} from './Context/AuthProvider.tsx'
 
 export interface PlayListContextType {
   playlists: IPlaylist[];
@@ -24,8 +27,8 @@ export interface UpdateSongContextType {
   setSongToEdit:  React.Dispatch<React.SetStateAction<ISong>>
 }
 export interface ViewPlaylistContextType {
-  dataToView: ISong[];
-  setDataToView:  React.Dispatch<React.SetStateAction<ISong[]>>
+  dataToView: string[];
+  setDataToView:  React.Dispatch<React.SetStateAction<string[]>>
 }
 export interface PlaylistDataContextType {
   data: IPlaylist;
@@ -43,13 +46,11 @@ export const PlaylistDataContext = createContext<PlaylistDataContextType>({} as 
 export const SongDataContext = createContext<SongDataContextType>({} as SongDataContextType);
 export const UpdateSongContext = createContext<UpdateSongContextType>({} as UpdateSongContextType);
 
-
-
 function App() {
 
   const [playlists, setPlaylists] = useState<IPlaylist[]>([]);
   const [dataToEdit, setDataToEdit] = useState({} as IPlaylist);
-  const [dataToView, setDataToView] = useState<ISong[]>([]);
+  const [dataToView, setDataToView] = useState<string[]>([]);
   const [data, setData] = useState({} as IPlaylist);
   const [songData, setSongData] = useState({} as ISong);
   const [songToEdit, setSongToEdit] = useState({} as ISong);
@@ -61,27 +62,31 @@ function App() {
 
   return (
     <div>
-    <PlayListContext.Provider value={{playlists, setPlaylists}}>
-      <PlaylistDataContext.Provider value={{data, setData}}>
-        <UpdatePlaylistContext.Provider value={{dataToEdit, setDataToEdit}}>
-          <ViewPlaylistContext.Provider value={{dataToView, setDataToView}}>
-            <SongDataContext.Provider value={{data: songData, setData: setSongData}}>
-              <UpdateSongContext.Provider value={{songToEdit, setSongToEdit}}>
-            <Routes>
-              <Route path='/' element={<HomePlaylistLibrary/>}></Route>
-              <Route path='/add-playlist' element={<AddPlaylistPage/>}></Route>
-              <Route path='/edit-playlist' element={<EditPlaylistPage/>}></Route>
-              <Route path='/view-playlist' element={<ViewPlaylistPage/>}></Route>
-              <Route path='/add-song' element={<AddSongPage/>}></Route>
-              <Route path='/edit-song' element={<EditSongPage/>}></Route>
-              <Route path='/songs-library' element={<HomeSongsLibrary/>}></Route>
-            </Routes>
-             </UpdateSongContext.Provider>
-            </SongDataContext.Provider>
-          </ViewPlaylistContext.Provider>
-        </UpdatePlaylistContext.Provider>
-      </PlaylistDataContext.Provider>
-    </PlayListContext.Provider>
+      <AuthProvider>
+        <PlayListContext.Provider value={{playlists, setPlaylists}}>
+          <PlaylistDataContext.Provider value={{data, setData}}>
+            <UpdatePlaylistContext.Provider value={{dataToEdit, setDataToEdit}}>
+              <ViewPlaylistContext.Provider value={{dataToView, setDataToView}}>
+                <SongDataContext.Provider value={{data: songData, setData: setSongData}}>
+                  <UpdateSongContext.Provider value={{songToEdit, setSongToEdit}}>
+                    <Routes>
+                      <Route path='/home' element={<HomePlaylistLibrary/>}></Route>
+                      <Route path='/add-playlist' element={<AddPlaylistPage/>}></Route>
+                      <Route path='/edit-playlist' element={<EditPlaylistPage/>}></Route>
+                      <Route path='/view-playlist' element={<ViewPlaylistPage/>}></Route>
+                      <Route path='/add-song' element={<AddSongPage/>}></Route>
+                      <Route path='/edit-song' element={<EditSongPage/>}></Route>
+                      <Route path='/songs-library' element={<HomeSongsLibrary/>}></Route>
+                      <Route path='/' element={<LogInPage/>}></Route>
+                      <Route path='/register' element={<RegisterPage/>}></Route>
+                    </Routes>
+                </UpdateSongContext.Provider>
+                </SongDataContext.Provider>
+              </ViewPlaylistContext.Provider>
+            </UpdatePlaylistContext.Provider>
+          </PlaylistDataContext.Provider>
+        </PlayListContext.Provider>
+      </AuthProvider>
     </div>
   );
 }

@@ -4,7 +4,7 @@ const playlists = require('../models/playlistModel.js');
 const songs = require('../models/songModel.js');
 
 const getAllPlaylists = async (req,res,next)=> {
-    try {
+    try{
         const result = await playlists.find();
         res.send(result);
     } catch (err) {
@@ -13,6 +13,39 @@ const getAllPlaylists = async (req,res,next)=> {
         });
     }
 }
+
+const getPaginatedPlaylists = async (req,res,next)=> {
+    try {
+        const page = req.query.page || 1;
+        const limit = req.query.limit;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const results = {};
+
+        if (endIndex < playlists.length) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            };
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            };
+        }
+
+        results.results = await playlists.find().skip(startIndex).limit(limit).exec();
+        res.paginatedResults = results;
+        res.send(results.results);
+    } catch (err) {
+        res.status(500).json({
+            error: err 
+        });
+    }
+}
+
 const createNewPlaylist = (req,res,next)=>{
     console.log(req.body);
     const playlisy = new playlists({
@@ -79,10 +112,25 @@ const updatePlaylist = async(req,res,next)=>{
 };
 
 const getAllSongs = async (req,res,next)=> {
-
-    try{
+   try{
         const {playlistId} = req.params;
         const result = await playlists.findOne({Id: playlistId}).populate('Songs');
+        res.send(result);
+    } catch (err) {
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+const addSongToPlaylist = async (req,res,next)=> {
+    try{
+        const {playlistId} = req.params;
+        const {songId} = req.params;
+        const result = await playlists.findOne({Id: playlistId});
+        console.log(result);
+        result.Songs.push(songId);
+        result.save();
         res.send(result);
     } catch (err) {
         res.status(500).json({
@@ -90,16 +138,12 @@ const getAllSongs = async (req,res,next)=> {
         });
     }
 }
-
-const addSongToPlaylist = async (req,res,next)=> {
-    res.send('addSongToPlaylist');
-}
 const deleteSongFromPlaylist = async (req,res,next)=> {
     try{
         const {playlistId} = req.params;
         const {songId} = req.params;
         const result = await playlists.findOne({Id: playlistId});
-        result.Songs.pull(songId);
+        result.Songs = result.Songs.filter(song => song != songId);
         result.save();
         res.send(result);
     } catch (err) {
@@ -111,6 +155,7 @@ const deleteSongFromPlaylist = async (req,res,next)=> {
 
 module.exports = {
     getAllPlaylists,
+    getPaginatedPlaylists,
     createNewPlaylist,
     showDetailsOfSpecificPlaylist,
     deletePlaylist,

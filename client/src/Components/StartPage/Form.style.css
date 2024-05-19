@@ -1,0 +1,139 @@
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    background: hsla(226, 27%, 64%, 0.3);
+
+    border: 2px solid (255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    padding: 30px 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+}
+
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    color: salmon;
+    margin: 30px 0;
+}
+
+.input-box input{
+    width: 80%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    color: white;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 40px;
+}
+
+.input-box input::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+}
+
+/*remove eye icon from password field*/
+.input-box input[type="password"]::-ms-reveal,
+.input-box input[type="password"]::-ms-clear{
+    display: none;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.wrapper button{
+    width: 50%;
+    height: 50px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 40px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 18px;
+    color:black;
+    font-weight: 700;
+}
+
+.wrapper button:hover{
+    background: white;
+}
+
+.wrapper .register-link{
+    font-size: 14;
+    text-align: center;
+    margin-top: 20px;
+    margin: 20px 0 15px;
+}
+
+.register-link p a{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover{
+    text-decoration: underline;
+}
+
+.valid{
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: green;
+}
+
+.invalid{
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: red;
+}
+
+.hide{
+    display: none;
+}
+
+.instructions{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    margin: 20px 0 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+}
+
+.errmsg{
+    font-size: 14px;
+    text-align: center;
+    color: rgb(86, 4, 4);
+    font-weight: 650;
+    margin-top: 20px;
+    margin: 20px 0 15px;
+    background-color: rgba(239, 113, 113, 0.4);
+    border-radius: 15px;
+}

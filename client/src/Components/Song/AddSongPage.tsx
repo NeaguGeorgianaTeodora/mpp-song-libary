@@ -36,7 +36,6 @@ function AddSongPage() {
         navigate('/songs-library');
       };
 
-
     return (
       <>
         <h1>Add Song</h1>
@@ -63,7 +62,7 @@ function AddSongPage() {
             </div>
         </form>
 
-        <button className="button" onClick={() => {navigate('/');}}>
+        <button className="button" onClick={() => {navigate('/songs-library');}}>
             Back
         </button>
         <button type="submit" className="button" onClick={addSongHnd}>

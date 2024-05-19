@@ -22,7 +22,7 @@ function HomeSongsLibrary() {
 
   return (
     <>
-       <button className="button" onClick={() => {navigate('/');}}>Playlists</button>
+       <button className="button" onClick={() => {navigate('/home');}}>Playlists</button>
 
         <SongLibrary
                         songs={songList}

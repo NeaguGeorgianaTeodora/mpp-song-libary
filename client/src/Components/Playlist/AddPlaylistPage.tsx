@@ -6,6 +6,7 @@ import '../assets/standardImage.png';
 import './AddPlaylistPage.style.css'
 import {useState} from 'react';
 import Axios from 'axios';
+import mongoose from 'mongoose';
 
 function AddPlaylistPage() {
     
@@ -43,9 +44,11 @@ function AddPlaylistPage() {
             console.log('Error:', error);
 
             const localStorageItems = localStorage.getItem('failedItems');
+
             if(localStorageItems) {
                 const items = JSON.parse(localStorageItems);
                 items.push({
+                    Id: new mongoose.Types.ObjectId(), 
                     Name: playlistName,
                     Creator: creator,
                     Rating: rating,
@@ -55,6 +58,7 @@ function AddPlaylistPage() {
                 localStorage.setItem('failedItems', JSON.stringify(items));
             } else {
                 localStorage.setItem('failedItems', JSON.stringify([{
+                    Id: new mongoose.Types.ObjectId(),
                     Name: playlistName,
                     Creator: creator,
                     Rating: rating,
@@ -65,7 +69,7 @@ function AddPlaylistPage() {
 
         });
         
-        navigate('/');
+        navigate('/home');
       };
 
 
@@ -111,7 +115,7 @@ function AddPlaylistPage() {
             </div>
         </form>
 
-        <button className="button" onClick={() => {navigate('/');}}>
+        <button className="button" onClick={() => {navigate('/home');}}>
             Back
         </button>
         <button type="submit" className="button" onClick={addPlaylistHnd}>

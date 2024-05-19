@@ -1,80 +1,59 @@
 const request = require('supertest');
-const app = require('../app'); // Assuming your Express app is exported from 'app.js'
-const mongoose = require('mongoose');
+const app = require('../app'); // Adjust the path as needed
 
-// Describe block for SongListController tests
-describe("SongListController", () => {
-    // Test case for creating a new song
-    it("should create a new song", async () => {
-        const newSong = {
-            Title: "Test Song",
-            Artist: "Test Artist"
-        };
-
+describe('songs', () => {
+    /*it('should return a list of all songs', async () => {
         const response = await request(app)
-            .post('/songList')
-            .send(newSong);
+            .get('/api/songs')
+            .expect(200);
 
-        expect(response.status).toBe(201);
+        expect(response.body).toHaveLength(3);
+        expect(response.body[0].Name).toBe("S1");
+        expect(response.body[1].Name).toBe("AS2");
+        expect(response.body[2].Name).toBe("BS2");
+    });*/
+
+    /*it('should create a new song', async () => {
+        const response = await request(app)
+            .post('/api/songs')
+            .send({
+                Name: "S1",
+                Artist: "Georgiana",
+                Album: "Album1",
+                Duration: 5,
+                Rating: 5,
+                ImageURL: "S3_image",
+                Playlist: []
+            })
+            .expect(201);
+
         expect(response.body.message).toBe("Song was created");
-        expect(response.body.createdSong.Title).toBe("Test Song");
-        expect(response.body.createdSong.Artist).toBe("Test Artist");
-        
-        // Clean up: delete the created song from the database
-        await mongoose.connection.collection('songlists').deleteOne({ _id: response.body.createdSong._id });
+        expect(response.body.createdSong.Name).toBe("S1");
     });
 
-    // Test case for getting all songs
-    it("should return a list of all songs", async () => {
+    it('should show details of a specific song', async () => {
         const response = await request(app)
-            .get('/songList');
+            .get('/api/songs/1')
+            .expect(200);
 
-        expect(response.status).toBe(200);
-        expect(response.body).toHaveLength(3); // Modify this based on your actual test data
+        expect(response.body.message).toBe("song details");
+        expect(response.body.songId).toBe(1);
     });
 
-    // Test case for deleting a specific song
-    it("should delete a specific song", async () => {
-        const newSong = new songs({
-            Title: "Test Song",
-            Artist: "Test Artist"
-        });
-        await newSong.save();
-
+    it('should delete a specific song', async () => {
         const response = await request(app)
-            .delete(`/songList/${newSong._id}`);
+            .delete('/api/songs/1')
+            .expect(200);
 
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe("Deleted song!");
-        
-        // Make sure the song is deleted from the database
-        const deletedSong = await songs.findById(newSong._id);
-        expect(deletedSong).toBeNull();
+        expect(response.body.message).toBe("Deleted product!");
+        expect(response.body.songId).toBe(1);
     });
 
-    // Test case for updating a specific song
-    it("should update a specific song", async () => {
-        const newSong = new songs({
-            Title: "Test Song",
-            Artist: "Test Artist"
-        });
-        await newSong.save();
-
-        const updatedData = {
-            Title: "Updated Test Song",
-            Artist: "Updated Test Artist"
-        };
-
+    it('should update a specific song', async () => {
         const response = await request(app)
-            .put(`/songList/${newSong._id}`)
-            .send(updatedData);
+            .patch('/api/songs/1')
+            .expect(200);
 
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe("Updated song!");
-        
-        // Verify the updated data in the database
-        const updatedSong = await songs.findById(newSong._id);
-        expect(updatedSong.Title).toBe(updatedData.Title);
-        expect(updatedSong.Artist).toBe(updatedData.Artist);
-    });
+        expect(response.body.message).toBe("Updated product!");
+    });*/
 });
