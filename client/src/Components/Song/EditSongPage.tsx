@@ -1,23 +1,23 @@
 
 
 import { TextField } from '@mui/material';
-import './Button.style.css';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
-import './AddPlaylistPage.style.css'
-import './Playlist/Playlist.style.css'
+import '../Playlist/AddPlaylistPage.style.css'
+import '../Playlist/Playlist.style.css'
 import {useState, useContext} from 'react';
-import { SongDataContext } from '../App.js';
+import { UpdateSongContext } from '../../App.js';
 import Axios from 'axios';
 
 function EditSongPage() {
     
     const navigate = useNavigate();
     
-    const songDataContext = useContext(SongDataContext);
+    const updateSongContext = useContext(UpdateSongContext);
 
 
-    const [songTitle, setSongTitle] = useState(songDataContext.data.Title);
-    const [artist, setArtist] = useState(songDataContext.data.Artist);
+    const [songTitle, setSongTitle] = useState(updateSongContext.songToEdit.Title);
+    const [artist, setArtist] = useState(updateSongContext.songToEdit.Artist);
 
     const onSongTitleChange = (e: any) => {
         setSongTitle(e.target.value);
@@ -28,20 +28,17 @@ function EditSongPage() {
     };
 
     const updateSong = () => {
-       /* const api = `http://localhost:3005/playlistLibrary/${updatePlaylistContext.dataToEdit.Id}`;
+        const api = `http://localhost:3005/songList/${updateSongContext.songToEdit.Id}`;
         Axios.put(api, {
-            Name: playlistName,
-            Creator: creator,
-            Rating: rating,
-            ImageURL: updatePlaylistContext.dataToEdit.ImageURL,
-            Songs: updatePlaylistContext.dataToEdit.Songs,
+            Title: songTitle,
+            Artist: artist,
         }).then((response) => {
-            console.log("Updated Playlist");
+            console.log("Updated Song");
             console.log(response.data);
         }).catch((error) => {
             console.log('Error:', error);
-        });       */ 
-        navigate('/');
+        });
+        navigate('/songs-library');
       };
 
     return (

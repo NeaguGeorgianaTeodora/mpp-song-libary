@@ -1,18 +1,15 @@
 
 import { TextField } from '@mui/material';
-import './Button.style.css';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
-import './AddPlaylistPage.style.css'
-import './Playlist/Playlist.style.css'
-import {useState, useContext} from 'react';
-import { PlaylistDataContext,  } from '../App.js';
+import '../Playlist/AddPlaylistPage.style.css'
+import '../Playlist/Playlist.style.css'
+import {useState} from 'react';
 import Axios from 'axios';
 
 function AddSongPage() {
     
     const navigate = useNavigate();
-
-    const playlistDataContext = useContext(PlaylistDataContext);
 
     const [songTitle, setSongTitle] = useState("");
     const [artist, setArtist] = useState("");
@@ -26,20 +23,6 @@ function AddSongPage() {
     };
 
     const addSongHnd = () => {
-        /*const api = `http://localhost:3005/playlistLibrary/${playlistDataContext.data.Id}/songs`;
-        Axios.put(api, {
-            Songs: [...playlistDataContext.data.Songs, {
-                Title: songTitle, 
-                Artist: artist,
-            }],
-        }).then((response) => {
-            console.log("Updated Playlist");
-            console.log(response.data);
-        }).catch((error) => {
-            console.log('Error:', error);
-        });
-        navigate('/');*/
-        //const api = `http://localhost:3005/playlistLibrary/${playlistDataContext.data.Id}/songs`;
         const api = 'http://localhost:3005/songList'
         Axios.post(api, {
                 Title: songTitle, 
@@ -50,7 +33,7 @@ function AddSongPage() {
         }).catch((error) => {
             console.log('Error:', error);
         });
-        navigate('/');
+        navigate('/songs-library');
       };
 
 

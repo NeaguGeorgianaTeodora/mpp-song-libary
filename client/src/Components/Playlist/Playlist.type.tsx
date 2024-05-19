@@ -18,8 +18,9 @@ async function callData() {
   try{
       const isOnline = navigator.onLine;
       if(!isOnline) return;
+      console.log(isOnline)
 
-      const api = 'http://localhost:3005/playlistLibrary';
+      const api = 'http://localhost:3005/playlistLibrary/';
       const response = await fetch(api);
       console.log('Response ', response)
       const responseData = await response.json();

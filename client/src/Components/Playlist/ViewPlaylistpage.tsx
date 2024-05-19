@@ -1,10 +1,9 @@
 
-import './Button.style.css';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
-import { ISong } from './Song/Song.type.js';
-import {useContext} from 'react';
-import { useState } from 'react';
-import { ViewPlaylistContext, PlaylistDataContext, SongDataContext} from '../App.js';
+import { ISong } from '../Song/Song.type.js';
+import {useContext, useState} from 'react';
+import { ViewPlaylistContext, PlaylistDataContext, SongDataContext} from '../../App.js';
 
 function ViewPlaylistPage() {
     
@@ -44,7 +43,6 @@ function ViewPlaylistPage() {
             </div>
         </li>
     ));
-
 
     return (
       <>

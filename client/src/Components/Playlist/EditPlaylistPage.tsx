@@ -1,10 +1,10 @@
 import { TextField } from '@mui/material';
-import './Button.style.css';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
 import './AddPlaylistPage.style.css'
-import './Playlist/Playlist.style.css'
+import './Playlist.style.css'
 import {useState, useContext} from 'react';
-import { UpdatePlaylistContext} from '../App.js';
+import { UpdatePlaylistContext} from '../../App.js';
 import Axios from 'axios';
 
 function EditPlaylistPage() {

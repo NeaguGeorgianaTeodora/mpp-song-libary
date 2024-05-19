@@ -1,12 +1,12 @@
-import PlaylistLibrary  from './Playlist/PlaylistLibrary.js';
-import './Button.style.css';
+import PlaylistLibrary  from './PlaylistLibrary.js';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
-import { IPlaylist } from './Playlist/Playlist.type.js';
-import {useContext, useEffect} from 'react';
-import { PlayListContext} from '../App.js';
-import { useState } from 'react';
-import { Pagination } from './Pagination.js';
+import { IPlaylist } from './Playlist.type.js';
+import {useContext, useEffect, useState} from 'react';
+import { PlayListContext} from '../../App.js';
+import { Pagination } from '../Pagination.js';
 import Axios  from 'axios';
+import NetworkStatus from '../NetworkStatus.js';
 
 function HomePlaylistLibrary() {
   
@@ -19,21 +19,16 @@ function HomePlaylistLibrary() {
   const firstPostIndex = lastPostIndex - postPage;
   const currentPosts = playListContext.playlists?.slice(firstPostIndex, lastPostIndex);
 
-
   useEffect(() => {
     window.addEventListener('online', () =>  {
       const failedItems = JSON.parse(localStorage.getItem('failedItems') || '');
       if(failedItems.length) {
-        console.log("CAlling api")
+        console.log("Calling api")
         const api = `http://localhost:3005/playlistLibrary/sync`;
         Axios.post(api, {items: failedItems})
         localStorage.setItem('failedItems', JSON.stringify([]))
-     }
-
-
+      }
     })
-
-   
   }, [])
 
   const handleSortByName = () => {
@@ -54,6 +49,8 @@ function HomePlaylistLibrary() {
 
   return (
     <>
+       <button className="button" onClick={() => {navigate('/songs-library');}}>Songs</button>
+
        <PlaylistLibrary
             items={currentPosts}
             deletePlaylist={deletePlaylistHnd}
@@ -65,6 +62,7 @@ function HomePlaylistLibrary() {
 
         <button className="button" onClick={() => {navigate('/add-playlist');}}>Add</button>
         <input type='button' className="button" onClick={handleSortByName} value='Sort by Name' />
+        <NetworkStatus/>
     </>
   );
 }

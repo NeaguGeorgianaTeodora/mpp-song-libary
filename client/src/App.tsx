@@ -1,10 +1,11 @@
 import './App.css'
-import HomePlaylistLibrary from './Components/HomePlaylistLibrary';
-import AddPlaylistPage from './Components/AddPlaylistPage';
-import EditPlaylistPage from './Components/EditPlaylistPage';
-import ViewPlaylistPage from './Components/ViewPlaylistpage';
-import AddSongPage from './Components/AddSongPage.tsx';
-import EditSongPage from './Components/EditSongPage.tsx';
+import HomePlaylistLibrary from './Components/Playlist/HomePlaylistLibrary.tsx';
+import AddPlaylistPage from './Components/Playlist/AddPlaylistPage.tsx';
+import EditPlaylistPage from './Components/Playlist/EditPlaylistPage.tsx';
+import ViewPlaylistPage from './Components/Playlist/ViewPlaylistpage.tsx';
+import AddSongPage from './Components/Song/AddSongPage.tsx';
+import EditSongPage from './Components/Song/EditSongPage.tsx';
+import HomeSongsLibrary from './Components/Song/HomeSongsLibrary.tsx'
 import {Routes, Route} from 'react-router-dom';
 import { IPlaylist, exampleList} from './Components/Playlist/Playlist.type.tsx';
 import { ISong } from './Components/Song/Song.type.tsx';
@@ -17,6 +18,10 @@ export interface PlayListContextType {
 export interface UpdatePlaylistContextType {
   dataToEdit: IPlaylist;
   setDataToEdit:  React.Dispatch<React.SetStateAction<IPlaylist>>
+}
+export interface UpdateSongContextType {
+  songToEdit: ISong;
+  setSongToEdit:  React.Dispatch<React.SetStateAction<ISong>>
 }
 export interface ViewPlaylistContextType {
   dataToView: ISong[];
@@ -36,6 +41,7 @@ export const UpdatePlaylistContext = createContext<UpdatePlaylistContextType>({}
 export const ViewPlaylistContext = createContext<ViewPlaylistContextType>({} as ViewPlaylistContextType);
 export const PlaylistDataContext = createContext<PlaylistDataContextType>({} as PlaylistDataContextType);
 export const SongDataContext = createContext<SongDataContextType>({} as SongDataContextType);
+export const UpdateSongContext = createContext<UpdateSongContextType>({} as UpdateSongContextType);
 
 
 
@@ -46,6 +52,8 @@ function App() {
   const [dataToView, setDataToView] = useState<ISong[]>([]);
   const [data, setData] = useState({} as IPlaylist);
   const [songData, setSongData] = useState({} as ISong);
+  const [songToEdit, setSongToEdit] = useState({} as ISong);
+
 
   useEffect(()=> {
       setPlaylists(exampleList);
@@ -58,6 +66,7 @@ function App() {
         <UpdatePlaylistContext.Provider value={{dataToEdit, setDataToEdit}}>
           <ViewPlaylistContext.Provider value={{dataToView, setDataToView}}>
             <SongDataContext.Provider value={{data: songData, setData: setSongData}}>
+              <UpdateSongContext.Provider value={{songToEdit, setSongToEdit}}>
             <Routes>
               <Route path='/' element={<HomePlaylistLibrary/>}></Route>
               <Route path='/add-playlist' element={<AddPlaylistPage/>}></Route>
@@ -65,7 +74,9 @@ function App() {
               <Route path='/view-playlist' element={<ViewPlaylistPage/>}></Route>
               <Route path='/add-song' element={<AddSongPage/>}></Route>
               <Route path='/edit-song' element={<EditSongPage/>}></Route>
+              <Route path='/songs-library' element={<HomeSongsLibrary/>}></Route>
             </Routes>
+             </UpdateSongContext.Provider>
             </SongDataContext.Provider>
           </ViewPlaylistContext.Provider>
         </UpdatePlaylistContext.Provider>

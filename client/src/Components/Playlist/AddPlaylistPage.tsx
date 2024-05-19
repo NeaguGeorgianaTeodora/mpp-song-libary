@@ -1,16 +1,16 @@
 import { TextField } from '@mui/material';
-import './Button.style.css';
+import '../Button.style.css';
 import { useNavigate } from 'react-router-dom';
 import './AddPlaylistPage.style.css'
-import './assets/standardImage.png';
-import './Playlist/Playlist.style.css'
+import '../assets/standardImage.png';
+import './AddPlaylistPage.style.css'
 import {useState} from 'react';
 import Axios from 'axios';
 
 function AddPlaylistPage() {
     
     const navigate = useNavigate();
-    const standardImage = './assets/standardImage.png';
+    const standardImage = '../assets/standardImage.png';
 
     const [playlistName, setPlaylistName] = useState("");
     const [creator, setCreator] = useState("");
