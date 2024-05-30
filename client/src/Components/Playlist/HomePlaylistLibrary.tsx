@@ -4,22 +4,28 @@ import { useNavigate } from 'react-router-dom';
 import { IPlaylist, fetchDataPerPage, allData} from './Playlist.type.js';
 import {useContext, useEffect, useState} from 'react';
 import { PlayListContext} from '../../App.js';
-import Axios  from 'axios';
+//import Axios  from 'axios';
 import NetworkStatus from '../NetworkStatus.js';
 import InfiniteScroll from 'react-infinite-scroll-component';
+//import AuthContext from '../../Context/AuthProvider.tsx';
+import useRefreshToken from "../../Hooks/useRefreshToken.tsx";
 
 function HomePlaylistLibrary() {
   
+  const refresh = useRefreshToken();
   const navigate = useNavigate();
+  //const auth = useContext(AuthContext);
   const playListContext = useContext(PlayListContext);
+  //const authContext = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const totalPlaylists =  allData.length;
   const limit = 100;
   let curruntNrOfLoadedItems = currentPage * limit;
 
-  useEffect(() => {
+  /*useEffect(() => {
       console.log("Online")
+      //console.log("Authorization Token:"+ auth?.auth);
       const failedItems = JSON.parse(localStorage.getItem('failedItems') || '');
       if(failedItems.length) {
         console.log("Calling api")
@@ -27,7 +33,7 @@ function HomePlaylistLibrary() {
         Axios.post(api, {items: failedItems})
         localStorage.setItem('failedItems', JSON.stringify([]))
       }
-  }, []);
+  }, []);*/
 
 
   const handleSortByName = () => {
@@ -68,9 +74,11 @@ function HomePlaylistLibrary() {
 
   return (
     <>
+      <button className="button" onClick={() => {refresh();}}>Refresh</button>
        <button className="button" onClick={() => {navigate('/songs-library');}}>Songs</button>
        <button className="button" onClick={() => {navigate('/add-playlist');}}>+</button>
        <button className='button' onClick={handleSortByName}><span>&#8693;</span> Name</button>
+     
         <NetworkStatus/>
        <br></br>
        <br></br>

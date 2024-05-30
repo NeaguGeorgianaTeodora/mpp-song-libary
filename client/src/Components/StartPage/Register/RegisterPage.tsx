@@ -74,7 +74,7 @@ function RegisterPage(){
             );
             console.log(JSON.stringify(response));
             setSuccess(true);
-            navigate('/home');
+            navigate('/');
         } catch (error: any) {
             if(error.response.status === 409){
                 setErrMsg('Username already exists. Please try another one.');

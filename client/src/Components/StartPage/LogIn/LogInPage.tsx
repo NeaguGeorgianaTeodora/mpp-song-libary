@@ -1,23 +1,23 @@
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef, useEffect, useContext } from 'react';
-import AuthContext from '../../../Context/AuthProvider';
+import {AuthContext} from "../../../App.tsx";
 import '../Form.style.css';
 import Axios from 'axios';
-import { set } from "mongoose";
 
 function LogInPage() {
 
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+  const location = useLocation();
+  const from = location?.state?.from.pathname || '/';
 
-  const {setAuth} = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>();
   const errRef = useRef<HTMLParagraphElement>();
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (userRef.current) {
@@ -38,14 +38,14 @@ function LogInPage() {
 
       const logIn_api = 'http://localhost:3005/users/login';
       const response = await Axios.post(logIn_api, {Username: user, Password: password});
-      const data = response.data;
-      console.log(JSON.stringify(data));
-      const accessToken = data.accessToken;
-      //const roles = data.roles;
-      setAuth({Username: user, Password: password, AccessToken:accessToken});
+      console.log(JSON.stringify(response?.data));
+      const accessToken =String(response?.data?.accessToken);
+      auth?.setAuth({Username: user, Password: password, RefreshToken:accessToken});
+      console.log('Access Token from backend: ', JSON.stringify(accessToken));
+      console.log('Access Token from context:', JSON.stringify(auth.auth.RefreshToken));
       setUser('');
       setPassword('');
-      setSuccess(true);
+      navigate(from, {replace: true});
       navigate('/home');
     }catch(err: any){
       if(err.response.status === 401){

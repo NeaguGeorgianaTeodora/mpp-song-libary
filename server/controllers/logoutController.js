@@ -15,7 +15,8 @@ const handleLogout = async (req,res,next) => {
     //is refreshToken in the db?
     const foundUser =  await users.findOne({ RefreshToken: refreshToken }).exec();
     if (!foundUser) {
-        res.clearCookie('jwt', {httpOnly: true});
+        //res.clearCookie('jwt', {httpOnly: true});
+        res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
         return res.status(204).json({
             message: 'No user found with that refresh token',
             status: 204

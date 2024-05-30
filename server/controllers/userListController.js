@@ -69,11 +69,11 @@ const loginUser = async (req,res,next) => {
             { expiresIn: '1d'} 
         );
 
-        foundUser.RefreshToken = refreshToken;
+        foundUser.RefreshToken = refreshToken; 
         const result = await foundUser.save();
         console.log(result);
 
-        res.cookie('jwt', refreshToken, {
+        res.cookie('jwt', refreshToken, { 
             httpOnly: true,
             sameSite: 'None',
             secure: true, //might not be able to test this locally

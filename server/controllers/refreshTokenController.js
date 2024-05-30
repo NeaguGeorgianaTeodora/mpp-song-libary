@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const users = require('../models/userModel.js');
 const jwt = require('jsonwebtoken');
+const { stringify } = require('ts-jest');
 
 const handleRefreshToken = async (req,res,next) => {
-    const  cookies  = req.cookies;
-    if (!cookies?.jwt) {
+    const cookies  = req.cookies;
+    if (!cookies?.jwt) { //cookie is undefined tho is set in the browser and it works in beckend
+        console.log("401: "+ stringify(cookies.jwt))
+        console.log(stringify(cookies))
         return res.sendStatus(401);
     }
     console.log(cookies.jwt);

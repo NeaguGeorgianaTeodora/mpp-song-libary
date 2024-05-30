@@ -33,6 +33,7 @@ async function fetchAllData() {
           };
         list.push(data);
     });
+    console.log(list.length);
     return list;
   } catch (e) {
       console.log('Error:', e);
