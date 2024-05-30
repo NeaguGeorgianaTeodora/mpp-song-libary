@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  server:
+    container_name: mpp-song-server
+    volumes:
+      - .:/app
+      - /app/node_modules
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "8181:8181"
