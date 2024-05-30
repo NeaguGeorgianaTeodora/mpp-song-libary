@@ -1,19 +1,16 @@
 FROM node:lts-alpine3.18
 
-ENV HOMEDIR=/server
+ENV HOMEDIR=/client
 
 WORKDIR $HOMEDIR
-
-RUN npm install -g pm2 yargs
 
 # JavaScript dependencies
 COPY package*.json $HOMEDIR
 
 RUN rm -rf node_modules && npm install --force
-RUN npm rebuild bcrypt
 
 COPY . $HOMEDIR
 
-EXPOSE 8181
+EXPOSE 3000
 
-CMD [ "npm", "run", "start"]
+CMD [ "npm", "run", "dev" ]
