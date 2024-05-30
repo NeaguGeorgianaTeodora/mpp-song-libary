@@ -1,6 +1,6 @@
 FROM node:lts-alpine3.18
 
-ENV HOMEDIR=/app
+ENV HOMEDIR=/server
 
 WORKDIR $HOMEDIR
 

@@ -1,4 +1,10 @@
-import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, {
+    createContext,
+    useState,
+    ReactNode,
+    Dispatch,
+    SetStateAction,
+} from 'react';
 
 interface AuthContextType {
     auth: Record<string, string>;
@@ -11,11 +17,11 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [auth, setAuth] = useState<Record<string, string>>({});
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth }}>
+        <AuthContext.Provider value={{auth, setAuth}}>
             {children}
         </AuthContext.Provider>
     );
